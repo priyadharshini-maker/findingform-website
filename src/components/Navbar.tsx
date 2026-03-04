@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { NavLink, Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
@@ -8,17 +9,40 @@ export default function Navbar() {
         animate={{ opacity: 1, x: 0 }}
         className="flex items-center"
       >
-        <img 
-          src="https://i.postimg.cc/qqr3xgSC/Trubuild-Logo-(2).png" 
-          alt="Trubuild Logo" 
-          className="h-12 md:h-16 object-contain"
-          referrerPolicy="no-referrer"
-        />
+        <Link to="/">
+          <img 
+            src="https://i.postimg.cc/qqr3xgSC/Trubuild-Logo-(2).png" 
+            alt="Trubuild Logo" 
+            className="h-12 md:h-16 object-contain"
+            referrerPolicy="no-referrer"
+          />
+        </Link>
       </motion.div>
-      <div className="flex gap-8 text-xs font-medium tracking-widest uppercase">
-        <a href="#" className="hover:opacity-50 transition-opacity">Works</a>
-        <a href="#" className="hover:opacity-50 transition-opacity">About</a>
-        <a href="#" className="hover:opacity-50 transition-opacity">Contact</a>
+      <div className="flex gap-8 text-xs tracking-widest uppercase">
+        <NavLink 
+          to="/" 
+          className={({ isActive }) => 
+            `transition-opacity ${isActive ? 'font-bold opacity-100' : 'font-medium opacity-50 hover:opacity-100'}`
+          }
+        >
+          Works
+        </NavLink>
+        <NavLink 
+          to="/about" 
+          className={({ isActive }) => 
+            `transition-opacity ${isActive ? 'font-bold opacity-100' : 'font-medium opacity-50 hover:opacity-100'}`
+          }
+        >
+          About
+        </NavLink>
+        <NavLink 
+          to="/contact" 
+          className={({ isActive }) => 
+            `transition-opacity ${isActive ? 'font-bold opacity-100' : 'font-medium opacity-50 hover:opacity-100'}`
+          }
+        >
+          Contact
+        </NavLink>
       </div>
     </nav>
   );

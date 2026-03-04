@@ -12,10 +12,14 @@ function fetchPage(url) {
 
 async function run() {
   const galleries = [
-    'https://postimg.cc/gallery/KMQ3kcV',
-    'https://postimg.cc/gallery/k21qYbr',
-    'https://postimg.cc/gallery/wNrDbTJ',
-    'https://postimg.cc/gallery/PhX77Vv'
+    'https://postimg.cc/gallery/0ztKWsd',
+    'https://postimg.cc/gallery/GTWnhHG',
+    'https://postimg.cc/gallery/PhXtR84',
+    'https://postimg.cc/gallery/nJQm2NC',
+    'https://postimg.cc/gallery/GmzYbWK',
+    'https://postimg.cc/gallery/vxhX0m4',
+    'https://postimg.cc/gallery/cJCNz3Q',
+    'https://postimg.cc/gallery/pd4vwBn'
   ];
   for (const g of galleries) {
     console.log(g);
@@ -23,7 +27,7 @@ async function run() {
     const matches = [...data.matchAll(/href="([^"]+)"/g)].map(m => m[1]).filter(url => url.includes('postimg.cc/') && !url.includes('gallery'));
     
     const directUrls = [];
-    for (const m of matches.slice(0, 10)) { // Limit to 10 to avoid too many requests
+    for (const m of matches.slice(0, 15)) { // Limit to 15 to avoid too many requests
       const pageData = await fetchPage(m);
       const directMatch = pageData.match(/href="(https:\/\/i\.postimg\.cc\/[^"]+)"/);
       if (directMatch) directUrls.push(directMatch[1]);

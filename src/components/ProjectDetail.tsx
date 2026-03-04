@@ -1,10 +1,14 @@
-import { useParams, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { projects } from '../types';
+import OtpModal from './OtpModal';
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const project = projects.find(p => p.id === id);
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
 
   if (!project) {
     return (
@@ -16,7 +20,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="w-full px-4 md:px-12 py-12 max-w-7xl mx-auto">
+    <div className="w-full px-4 md:px-12 py-12 max-w-7xl mx-auto relative">
       <Link to="/" className="inline-block mb-12 text-xs uppercase tracking-widest opacity-50 hover:opacity-100 transition-opacity">
         ← Back to Works
       </Link>
@@ -37,7 +41,7 @@ export default function ProjectDetail() {
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full aspect-[16/9] bg-black/5 mb-24 overflow-hidden"
+        className="w-full aspect-[16/9] bg-black/5 mb-12 overflow-hidden"
       >
         <img 
           src={project.imageUrl} 
@@ -45,6 +49,20 @@ export default function ProjectDetail() {
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover"
         />
+      </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="flex justify-center mb-24"
+      >
+        <button 
+          onClick={() => setIsOtpModalOpen(true)}
+          className="bg-ink text-bg px-8 py-4 text-sm font-medium uppercase tracking-widest hover:opacity-80 transition-opacity"
+        >
+          View Project Details
+        </button>
       </motion.div>
 
       {/* Galleries */}
@@ -76,6 +94,12 @@ export default function ProjectDetail() {
           ))}
         </div>
       )}
+
+      <OtpModal 
+        isOpen={isOtpModalOpen} 
+        onClose={() => setIsOtpModalOpen(false)} 
+        onSuccess={() => navigate(`/project/${project.id}/secure-details`)}
+      />
     </div>
   );
 }
