@@ -5,7 +5,7 @@ import twilio from 'twilio';
 const app = express();
 app.use(express.json());
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // In-memory store for OTPs (for demo/prototype purposes)
 const otpStore = new Map<string, { otp: string, expiresAt: number }>();
