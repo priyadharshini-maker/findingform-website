@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 
 export default function About() {
   return (
-    <div className="w-full px-4 md:px-12 py-12 max-w-7xl mx-auto min-h-[70vh]">
+    <div className="w-full px-4 md:px-6 py-12 max-w-[1400px] mx-auto min-h-[70vh]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
